@@ -12,6 +12,9 @@ namespace LegalGen_Backend.DBContext
         {
 
         }
-            
+        public DbSet<ResearchBook> ResearchBooks { get; set; }
+        public DbSet<LegalInformation> LegalInformations { get; set; }
+        public DbSet<SearchQuery> SearchQueries { get; set; }
+
     }
 }
