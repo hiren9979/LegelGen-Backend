@@ -11783,11 +11783,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\source\\repos\\Final-Project\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\source\\repos\\LegelGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
       "projectName": "LegalGen-Backend",
-      "projectPath": "C:\\Users\\admin\\source\\repos\\Final-Project\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
+      "projectPath": "C:\\Users\\admin\\source\\repos\\LegelGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\source\\repos\\Final-Project\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend\\obj\\",
+      "outputPath": "C:\\Users\\admin\\source\\repos\\LegelGen-Backend\\LegalGen-Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
