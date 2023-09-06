@@ -27,7 +27,7 @@ namespace LegalGen_Backend.Controllers
 
 
         // POST: api/UserRegisterModels
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel userRegisterModel)
         {
             if (!ModelState.IsValid)
@@ -50,7 +50,7 @@ namespace LegalGen_Backend.Controllers
             if (result.Succeeded)
             {
                 await _context.SaveChangesAsync();
-                return Ok("User created successfully !");
+                return Ok();
 
             }
             else
@@ -87,7 +87,7 @@ namespace LegalGen_Backend.Controllers
                 if (result.Succeeded)
                 {
                     await _context.SaveChangesAsync();
-                    return Ok("User updated successfully");
+                    return Ok();
                 }
                 else
                 {
@@ -103,8 +103,33 @@ namespace LegalGen_Backend.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginModel userLoginModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-      
+            var user = await _userManager.FindByEmailAsync(userLoginModel.Email);
+
+            if (user == null)
+            {
+                return Unauthorized("Invalid credentials");
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userLoginModel.Password, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                return Ok("Login successful");
+            }
+            else
+            {
+                return Unauthorized("Invalid credentials");
+            }
+        }
+
 
         [HttpPost("update-password")]
         public async Task<IActionResult> UpdatePassword([FromBody] ChangePassword updatePasswordDto)
@@ -131,7 +156,7 @@ namespace LegalGen_Backend.Controllers
             if (result.Succeeded)
             {
                 await _context.SaveChangesAsync();
-                return Ok("Password updated successfully.");
+                return Ok();
             }
             else
             {
