@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Rik57fJdSvcqj54qSsIHdh5qwVjfLm+DGXe2lIZDSpFK+Tr/RgiiDpa89TifyhJKj9bi9tpzFfapFGUUftq3yg==",
+  "dgSpecHash": "SF0stslVdi5de3LIQ+ruHfVk1MX5JdpIhPuRzbIx3gdDbs+0AjGYDyj7cPi0N01vvm+vEULHid75PRo0kyB6dA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\source\\repos\\Final-Project\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
+  "projectFilePath": "C:\\Users\\admin\\project\\LegelGen-Backend\\LegalGen-Backend\\LegalGen-Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
