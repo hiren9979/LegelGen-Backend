@@ -27,6 +27,10 @@ namespace LegalGen_Backend
             builder.Services.AddDbContext<ApplicationDbContext>
             (options => options.UseSqlServer(builder.Configuration.GetConnectionString("LegalGen")));
 
+            builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
+            {
+                build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
 
             var app = builder.Build();
 
@@ -38,6 +42,8 @@ namespace LegalGen_Backend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("corspolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
