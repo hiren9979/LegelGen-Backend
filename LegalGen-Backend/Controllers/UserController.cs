@@ -59,14 +59,14 @@ namespace LegalGen_Backend.Controllers
             }
 
         }
-
-        [HttpPut("{id}")]
+            
+        [HttpPut("update-profile")]
         // PUT: LegelGen/User/Update/{id}
         public async Task<IActionResult> UpdateUser([FromBody] UserRegisterModel userUpdateModel)
         {
             // Get the current user
             try
-            {
+            {       
                 // Find the user by email
                 var currentUser = await _userManager.FindByEmailAsync(userUpdateModel.Email);
 
@@ -103,6 +103,8 @@ namespace LegalGen_Backend.Controllers
             }
         }
 
+        
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginModel userLoginModel)
         {
@@ -114,7 +116,7 @@ namespace LegalGen_Backend.Controllers
             var user = await _userManager.FindByEmailAsync(userLoginModel.Email);
 
             if (user == null)
-            {
+            {   
                 return Unauthorized("Invalid credentials");
             }
 
@@ -122,13 +124,38 @@ namespace LegalGen_Backend.Controllers
 
             if (result.Succeeded)
             {
-                return Ok("Login successful");
+                return Ok(user);
             }
             else
             {
                 return Unauthorized("Invalid credentials");
             }
         }
+
+        [HttpGet("getUserByEmail/{email}")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            try
+            {
+                // Find the user by email
+                var user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                // Return the user data
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes
+                // You can also customize the error response message
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
 
 
         [HttpPost("update-password")]
