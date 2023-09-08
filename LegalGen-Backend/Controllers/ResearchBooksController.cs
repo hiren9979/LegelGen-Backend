@@ -10,7 +10,7 @@ using LegalGen_Backend.DBContext;
 
 namespace LegalGenApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("LegelGen/ResearchBooks")]
     [ApiController]
     public class ResearchBooksController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace LegalGenApi.Controllers
 
         public ResearchBooksController(ApplicationDbContext context)
         {
-           
+
             _context = context;
 
         }
@@ -36,10 +36,7 @@ namespace LegalGenApi.Controllers
         public async Task<ActionResult<ResearchBook>> GetResearchBook(int id)
         {
             var researchBook = await _context.ResearchBooks.FindAsync(id);
-    //        var researchBook = await _context.ResearchBooks
-    //.Where(rb => rb.UserId == id)
-    //.FirstOrDefaultAsync();
-
+            //       
             if (researchBook == null)
             {
                 return NotFound();
@@ -79,16 +76,44 @@ namespace LegalGenApi.Controllers
             return NoContent();
         }
 
+        [HttpGet("GetResearchBookByLegalInfo")]
+        public async Task<ActionResult<ResearchBook>> GetResearchBookByLegalInfo(int researchBookId, string section, string caseType, string CaseNumber, string Citation, string Act, string Petitioner, string Respondent)
+        {
+            try
+            {
+                var researchBook = await _context.ResearchBooks
+                    .Where(rb => rb.Id == researchBookId &&
+                                 (string.IsNullOrEmpty(section) || rb.Name.Contains(section)) ||
+                                 (string.IsNullOrEmpty(caseType) || rb.Name.Contains(caseType)) ||
+                                  (string.IsNullOrEmpty(CaseNumber) || rb.Name.Contains(CaseNumber)) ||
+                                   (string.IsNullOrEmpty(Citation) || rb.Name.Contains(Citation)) ||
+                                    (string.IsNullOrEmpty(Act) || rb.Name.Contains(Act)) ||
+                                     (string.IsNullOrEmpty(Petitioner) || rb.Name.Contains(Petitioner)) ||
+                                      (string.IsNullOrEmpty(Respondent) || rb.Name.Contains(Respondent))
+                                 )
+                    .FirstOrDefaultAsync();
+                if (researchBook == null)
+                {
+                    return NotFound("No matching ResearchBook found.");
+                }
+                return researchBook;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         // POST: api/ResearchBooks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("createResearchBook")]
         public async Task<ActionResult<ResearchBook>> PostResearchBook(ResearchBook researchBook)
         {
             Console.WriteLine(researchBook);
             _context.ResearchBooks.Add(researchBook);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetResearchBook", new { id = researchBook.UserId }, researchBook);
+            return Ok(researchBook);
         }
 
         // DELETE: api/ResearchBooks/5
